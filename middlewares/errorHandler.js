@@ -3,7 +3,7 @@ const CONSTANTS = require('../constants');
 
 const errorHandler = (err, req, res, next) => {
   const statusCode = err.status || 500;
-  console.log('in the error handler');
+
   switch (statusCode) {
     case CONSTANTS.UNAUTHORIZED_ACCESS:
       res.json({
