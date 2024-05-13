@@ -3,11 +3,22 @@ const userSchema = mongoose.Schema(
   {
     email: {
       type: String,
-      required: [true, 'email must required'],
+      required: [true, 'Email is required'],
     },
     password: {
       type: String,
-      required: [true, ' please add the user password '],
+      required: [true, 'Password is required'],
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    phoneNumber: {
+      type: String,
+      required: true,
+    },
+    profilePicture: {
+      type: String,
     },
   },
   { timestamps: true },

@@ -4,6 +4,8 @@ const connectDb = require('./db/connectDb');
 const errorHandler = require('./middlewares/errorHandler');
 const userRoute = require('./routes/userRoute');
 const toolsRoute = require('./routes/toolsRoute');
+const projectRoute = require('./routes/projectRoute');
+const taskRoute = require('./routes/taskRoute');
 require('dotenv').config();
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -22,6 +24,8 @@ app.use(cors());
 // Routes
 app.use('/users', userRoute);
 app.use('/tools', toolsRoute);
+app.use('/projects', projectRoute);
+app.use('/tasks', taskRoute);
 
 // Error handling middleware
 app.use(errorHandler);
