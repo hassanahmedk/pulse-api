@@ -6,6 +6,7 @@ const userRoute = require('./routes/userRoute');
 const toolsRoute = require('./routes/toolsRoute');
 const projectRoute = require('./routes/projectRoute');
 const taskRoute = require('./routes/taskRoute');
+const reminderRoutes = require('./routes/reminderRoutes');
 require('dotenv').config();
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -26,6 +27,7 @@ app.use('/users', userRoute);
 app.use('/tools', toolsRoute);
 app.use('/projects', projectRoute);
 app.use('/tasks', taskRoute);
+app.use('/reminders', reminderRoutes);
 
 // Error handling middleware
 app.use(errorHandler);
