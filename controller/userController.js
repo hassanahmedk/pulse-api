@@ -7,14 +7,20 @@ const jwt = require('jsonwebtoken');
 let tokenValue = 'valuetoken';
 
 const registerUser = asyncHandler(async (req, res) => {
-  let { email, password } = req.body;
+  let { email, password, name, profilePicture, phoneNumber } = req.body;
   const userExist = await userModel.findOne({ email });
   if (userExist) {
     throw new Error('USER_EXISTS');
   }
   const hashedPassword = await bcrypt.hash(password, 10); //* 10 is salt round
   password = hashedPassword;
-  const createdUser = await userModel.create({ email, password });
+  const createdUser = await userModel.create({
+    email,
+    password,
+    name,
+    profilePicture,
+    phoneNumber,
+  });
   console.log('user is created with ', createdUser);
   res.send({ status: 200, message: 'User created successfully.' });
 });
@@ -45,4 +51,9 @@ const currentUser = asyncHandler(async (req, res) => {
   res.json({ currentUser: req.user });
 });
 
-module.exports = { registerUser, loginUser, currentUser };
+const getAllUsers = async (req, res) => {
+  let users = await userModel.find({});
+  res.json({ users });
+};
+
+module.exports = { registerUser, loginUser, currentUser, getAllUsers };

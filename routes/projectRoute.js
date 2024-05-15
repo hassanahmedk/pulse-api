@@ -9,6 +9,6 @@ router.get('/', validateToken, projectController.getAllProjects);
 router.get('/:id', validateToken, projectController.getProjectById);
 router.put('/:id', validateToken, projectController.updateProject);
 router.delete('/:id', validateToken, projectController.deleteProject);
-router.post('/:id/add-user', jwtMiddleware, projectController.addUserToProject);
+router.post('/:id/add-user', validateToken, projectController.addUserToProject);
 
 module.exports = router;

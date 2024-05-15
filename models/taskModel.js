@@ -24,8 +24,9 @@ const taskSchema = new Schema({
     default: 'Medium',
   },
   tags: {
-    type: [String],
+    type: String,
   },
+  assignee: String,
   projectId: [
     {
       type: Schema.Types.ObjectId,

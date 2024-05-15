@@ -12,6 +12,17 @@ const taskController = {
     }
   },
 
+  createTaskBulk: async (req, res) => {
+    try {
+      // receives an array
+      const tasks = req.body.tasks;
+      const createdTasks = await Task.insertMany(tasks);
+      res.status(201).json(createdTasks);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+
   // Get all tasks
   getAllTasks: async (req, res) => {
     try {
@@ -22,10 +33,10 @@ const taskController = {
     }
   },
 
-  // Get a single task by ID
-  getTaskById: async (req, res) => {
+  // Get tasks by project ID
+  getTasksByProjectId: async (req, res) => {
     try {
-      const task = await Task.findById(req.params.id);
+      const task = await Task.find({ projectId: req.params.id });
       if (!task) {
         return res.status(404).json({ message: 'Task not found' });
       }
@@ -37,8 +48,10 @@ const taskController = {
 
   // Update a task by ID
   updateTask: async (req, res) => {
+    let updatedTaskBody = req.body.value;
+    let id = updatedTaskBody._id;
     try {
-      const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      const updatedTask = await Task.findByIdAndUpdate(id, updatedTaskBody, { new: true });
       if (!updatedTask) {
         return res.status(404).json({ message: 'Task not found' });
       }
