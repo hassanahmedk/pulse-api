@@ -5,7 +5,7 @@ const validateToken = require('../middlewares/validateToken.js');
 
 // Routes for projects
 router.post('/', validateToken, projectController.createProject);
-router.get('/', validateToken, projectController.getAllProjects);
+router.get('/', projectController.getAllProjects);
 router.get('/:id', validateToken, projectController.getProjectById);
 router.put('/:id', validateToken, projectController.updateProject);
 router.delete('/:id', validateToken, projectController.deleteProject);

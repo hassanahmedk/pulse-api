@@ -33,6 +33,12 @@ const taskSchema = new Schema({
       ref: 'Project',
     },
   ],
+  user: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
 });
 
 const Task = mongoose.model('Task', taskSchema);
