@@ -6,7 +6,7 @@ const taskController = {
   createTask: async (req, res) => {
     try {
       const newTask = await Task.create(req.body);
-      res.status(201).json(newTask);
+      res.status(201).json({success:true, newTask});
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -64,7 +64,7 @@ const taskController = {
   // Delete a task by ID
   deleteTask: async (req, res) => {
     try {
-      const deletedTask = await Task.findByIdAndDelete(req.params.id);
+      const deletedTask = await Task.findByIdAndDelete(req.body.key);
       if (!deletedTask) {
         return res.status(404).json({ message: 'Task not found' });
       }
