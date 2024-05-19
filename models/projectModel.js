@@ -11,13 +11,10 @@ const projectSchema = new Schema(
     description: {
       type: String,
     },
-    startDate: {
+    deadline: {
       type: Date,
       required: true,
       default: Date.now,
-    },
-    endDate: {
-      type: Date,
     },
     users: [
       {

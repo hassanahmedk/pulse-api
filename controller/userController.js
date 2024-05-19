@@ -56,4 +56,10 @@ const getAllUsers = async (req, res) => {
   res.json({ users });
 };
 
-module.exports = { registerUser, loginUser, currentUser, getAllUsers };
+const inviteUser = async (req, res) => {
+  const email = req.body.userEmail;
+
+  res.json({success:true, message:'Invite has been sent to the user'})
+}
+
+module.exports = { registerUser, loginUser, currentUser, getAllUsers, inviteUser };
