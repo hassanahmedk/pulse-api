@@ -26,7 +26,6 @@ const sendMessage = asyncHandler(async (req, res) => {
   Promise.all([conversation.save(), newMessage.save()]);
 
   const receiverSocketId = getReceiverSocketId(receiverId);
-  // console.log("receiver socket id " , receiverId , " and newMessage is ",newMessage);
   if (receiverSocketId) {
     console.log(
       "receiver socket id ",
@@ -49,6 +48,15 @@ const getMessage = asyncHandler(async (req, res) => {
     return res.status(200).json({ error: "No conversation exist" });
   }
   const messages = conversation.messages;
+
+  messages = messages.map(message => {
+    if(message.senderId === senderId){
+      message.messageType = 'sent';
+    } else {
+      message.messageType = 'received';
+    }
+  })
+
   res.status(200).send(messages);
 });
 module.exports = { sendMessage, getMessage };
