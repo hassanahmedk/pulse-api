@@ -1,10 +1,10 @@
-const express = require('express');
-const asyncHandler = require('express-async-handler');
-const userModel = require('../models/userModel');
-const Conversation = require('../models/conversationModel');
-const Message = require('../models/messageModel');
-const { getReceiverSocketId } = require('../socket/socket');
-const { io } = require('../socket/socket');
+const express = require("express");
+const asyncHandler = require("express-async-handler");
+const userModel = require("../models/userModel");
+const Conversation = require("../models/conversationModel");
+const Message = require("../models/messageModel");
+const { getReceiverSocketId } = require("../socket/socket");
+const { io } = require("../socket/socket");
 
 const sendMessage = asyncHandler(async (req, res) => {
   const senderId = req.user.id;
@@ -27,8 +27,13 @@ const sendMessage = asyncHandler(async (req, res) => {
 
   const receiverSocketId = getReceiverSocketId(receiverId);
   if (receiverSocketId) {
-    console.log('receiver socket id ', receiverId, ' and newMessage is ', newMessage);
-    io.to(receiverId).emit('newMessage', newMessage);
+    console.log(
+      "receiver socket id ",
+      receiverId,
+      " and newMessage is ",
+      newMessage
+    );
+    io.to(receiverId).emit("newMessage", newMessage);
   }
   res.status(200).send({ message: `message sent successfully`, success: true });
 });
@@ -38,22 +43,12 @@ const getMessage = asyncHandler(async (req, res) => {
   const senderId = req.user.id;
   const conversation = await Conversation.findOne({
     participants: { $all: [senderId, UserToChatId] },
-  }).populate('messages');
+  }).populate("messages");
   if (!conversation) {
-    return res.status(200).json({ error: 'No conversation exist' });
+    return res.status(200).json({ error: "No conversation exist" });
   }
-  let messages = conversation.messages;
-
-  const updatedMessages = messages.map((message) => {
-    if (message.senderId === senderId) {
-      message.messageType = 'sent';
-    } else {
-      message.messageType = 'received';
-    }
-    return message;
-  });
-
-  res.status(200).send(updatedMessages);
+  const messages = conversation.messages;
+  res.status(200).send(messages);
 });
 module.exports = { sendMessage, getMessage };
 
