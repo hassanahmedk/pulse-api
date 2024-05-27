@@ -22,6 +22,7 @@ const projectSchema = new Schema(
         ref: 'User',
       },
     ],
+    lead: String,
   },
   { timestamps: true },
 );
