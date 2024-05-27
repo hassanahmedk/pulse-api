@@ -7,14 +7,18 @@ const {
   currentUser,
   getAllUsers,
   inviteUser,
-  logOut
+  logOut,
+  updateUserProfile,
+  updateUserPassword,
 } = require('../controller/userController');
 
 router.route('/signup').post(registerUser);
 router.route('/login').post(loginUser);
 router.get('/current', validateToken, currentUser);
 router.post('/invite', inviteUser);
-router.post("/logout",logOut);
+router.post('/logout', logOut);
+router.post('/updateProfile', validateToken, updateUserProfile);
+router.post('/updatePassword', validateToken, updateUserPassword);
 // we want to add token
 router.get('/getAllUsers', getAllUsers);
 
