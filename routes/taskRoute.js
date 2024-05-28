@@ -13,7 +13,7 @@ router.post('/updateTask', taskController.updateTask);
 router.post('/delete', taskController.deleteTask);
 
 router.post('/addBulk', taskController.createTaskBulk);
-router.get('/', validateToken, taskController.getAllTasks);
+router.get('/', taskController.getAllTasks);
 router.put('/:id', validateToken, taskController.updateTask);
 
 module.exports = router;
